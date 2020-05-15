@@ -79,23 +79,26 @@ export class Query {
 
   prepareQueryResultExecution(execute, maxAge) {
     const parameters = this.getParameters();
-    const missingParams = parameters.getMissing();
 
-    if (missingParams.length > 0) {
-      let paramsWord = "parameter";
-      let valuesWord = "value";
-      if (missingParams.length > 1) {
-        paramsWord = "parameters";
-        valuesWord = "values";
-      }
+    // By JJ: For now, we're going to allow missing parameters
 
-      return new QueryResult({
-        job: {
-          error: `missing ${valuesWord} for ${missingParams.join(", ")} ${paramsWord}.`,
-          status: 4,
-        },
-      });
-    }
+    // const missingParams = parameters.getMissing();
+
+    // if (missingParams.length > 0) {
+    //   let paramsWord = "parameter";
+    //   let valuesWord = "value";
+    //   if (missingParams.length > 1) {
+    //     paramsWord = "parameters";
+    //     valuesWord = "values";
+    //   }
+    //
+    //   return new QueryResult({
+    //     job: {
+    //       error: `missing ${valuesWord} for ${missingParams.join(", ")} ${paramsWord}.`,
+    //       status: 4,
+    //     },
+    //   });
+    // }
 
     if (parameters.isRequired()) {
       // Need to clear latest results, to make sure we don't use results for different params.
