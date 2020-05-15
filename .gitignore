@@ -25,3 +25,5 @@ npm-debug.log
 
 client/cypress/screenshots
 client/cypress/videos
+
+docker-compose.production.yml

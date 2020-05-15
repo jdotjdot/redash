@@ -5,6 +5,7 @@ from redash.utils import mustache_render, json_loads
 from redash.permissions import require_access, view_only
 from funcy import distinct
 from dateutil.parser import parse
+from redash import settings
 
 
 def _pluck_name_and_value(default_column, row):
@@ -150,6 +151,11 @@ class ParameterizedQuery(object):
 
         if not definition:
             return False
+
+        # Allow nullable parameters if we have the jinja templating turned on
+        if settings.FEATURE_ALLOW_JINJA:
+            if value is None:
+                return True
 
         enum_options = definition.get("enumOptions")
         query_id = definition.get("queryId")
